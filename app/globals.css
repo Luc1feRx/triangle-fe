@@ -1,4 +1,8 @@
 @import "tailwindcss";
+/* Swiper core + modules styles */
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
 
 :root {
   --background: #ffffff;
@@ -23,4 +27,54 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Swiper colors for dark background */
+.swiper {
+  --swiper-navigation-color: #fff;
+  --swiper-pagination-color: #fff;
+}
+
+/* Highlight navigation arrows */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #fff;
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+}
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 18px;
+  font-weight: 700;
+}
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background: rgba(249, 115, 22, 0.95); /* tailwind orange-500 */
+  border-color: rgba(249, 115, 22, 0.95);
+}
+
+/* Pagination bullets: bigger + active highlight */
+.swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background: rgba(255,255,255,0.5);
+  opacity: 1;
+}
+.swiper-pagination-bullet-active {
+  background: #f97316; /* orange-500 */
+  box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.35);
+}
+
+/* Move pagination below the cards for category slider */
+.category-swiper {
+  padding-bottom: 36px; /* reserve space for dots */
+  overflow: visible;    /* allow dots to show even if below */
+}
+.category-swiper .swiper-pagination {
+  bottom: 0;            /* place at the reserved bottom */
 }
