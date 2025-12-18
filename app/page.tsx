@@ -203,49 +203,61 @@ export default function Home() {
       </section>
 
       {/* CATEGORY SECTIONS */}
-      {categories.map((c, idx) => (
-        <section key={c} id={toId(c)} className="relative py-16 sm:py-24 bg-black border-t border-white/10">
-          <div className="max-w-7xl mx-auto px-6">
-            <h2 className="text-center text-2xl sm:text-3xl font-bold tracking-widest mb-12 uppercase">{c}</h2>
+      {categories.map((c, idx) => {
+        const ITEMS_PER_CATEGORY = 8;
+        return (
+          <section key={c} id={toId(c)} className="relative py-16 sm:py-24 bg-black border-t border-white/10">
+            <div className="max-w-7xl mx-auto px-6">
+              <h2 className="text-center text-2xl sm:text-3xl font-bold tracking-widest mb-12 uppercase">{c}</h2>
 
-            <div className="relative">
-              <Swiper
-                className="category-swiper"
-                modules={[Navigation, Pagination, A11y]}
-                navigation
-                pagination={{ clickable: true }}
-                loop={true}
-                grabCursor={true}
-                speed={550}
-                spaceBetween={16}
-                breakpoints={{
-                  0: { slidesPerView: 1 },
-                  640: { slidesPerView: 2 },
-                  1024: { slidesPerView: 3 },
-                }}
-              >
-                {Array.from({ length: 8 }, (_, i) => i + 1).map((n) => (
-                  <SwiperSlide key={n}>
-                    <div className="rounded-2xl overflow-hidden bg-gradient-to-br from-gray-700 to-gray-900 hover:shadow-2xl transition-shadow group cursor-pointer">
-                      <div className="relative h-56 sm:h-64 overflow-hidden bg-gray-800">
-                        <img
-                          src={`https://picsum.photos/seed/${idx + 1}-${n}/800/600`}
-                          alt={`${c} ${n}`}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
+              <div className="relative">
+                <Swiper
+                  className="category-swiper"
+                  modules={[Navigation, Pagination, A11y]}
+                  navigation
+                  pagination={{ clickable: true }}
+                  rewind={true}
+                  loop={false}
+                  slidesPerGroup={1}
+                  centeredSlides={false}
+                  grabCursor={true}
+                  speed={550}
+                  spaceBetween={16}
+                  observer={true}
+                  observeParents={true}
+                  resizeObserver={true}
+                  watchSlidesProgress={true}
+                  normalizeSlideIndex={true}
+                  breakpoints={{
+                    0: { slidesPerView: 1 },
+                    640: { slidesPerView: 2 },
+                    1024: { slidesPerView: 3 },
+                  }}
+                  autoHeight={false}
+                >
+                  {Array.from({ length: ITEMS_PER_CATEGORY }, (_, i) => i + 1).map((n) => (
+                    <SwiperSlide key={n}>
+                      <div className="rounded-2xl overflow-hidden bg-gradient-to-br from-gray-700 to-gray-900 hover:shadow-2xl transition-shadow group cursor-pointer">
+                        <div className="relative h-56 sm:h-64 overflow-hidden bg-gray-800">
+                          <img
+                            src={`https://picsum.photos/seed/${idx + 1}-${n}/800/600`}
+                            alt={`${c} ${n}`}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                        <div className="p-5">
+                          <h3 className="font-semibold text-lg">{c} {n}</h3>
+                          <p className="text-sm text-gray-300 mt-2">Mô tả ngắn cho mục nội dung này.</p>
+                        </div>
                       </div>
-                      <div className="p-5">
-                        <h3 className="font-semibold text-lg">{c} {n}</h3>
-                        <p className="text-sm text-gray-300 mt-2">Mô tả ngắn cho mục nội dung này.</p>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
             </div>
-          </div>
-        </section>
-      ))}
+          </section>
+        );
+      })}
 
       {/* Footer */}
       <footer className="py-12 border-t border-white/10 bg-black/80">

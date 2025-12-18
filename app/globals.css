@@ -27,6 +27,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden; /* prevent horizontal page scrollbars */
 }
 
 /* Swiper colors for dark background */
@@ -72,9 +73,39 @@ body {
 
 /* Move pagination below the cards for category slider */
 .category-swiper {
-  padding-bottom: 36px; /* reserve space for dots */
-  overflow: visible;    /* allow dots to show even if below */
+  padding-bottom: 52px;                 /* reserve space for dots inside container */
+  overflow: hidden;                     /* no scrollbars within slider */
+  -ms-overflow-style: none;             /* IE/Edge hide */
+  scrollbar-width: none;                /* Firefox hide */
+}
+.category-swiper::-webkit-scrollbar {   /* Chrome/Safari hide */
+  width: 0 !important;
+  height: 0 !important;
+}
+/* Swiper container overflow: keep hidden to avoid layout weirdness */
+.category-swiper .swiper {
+  overflow: hidden;
+}
+.category-swiper *::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+}
+.category-swiper .swiper-slide {        /* avoid vertical overflow */
+  height: auto;
+}
+.category-swiper {
+  --pagination-space: 52px;
 }
 .category-swiper .swiper-pagination {
-  bottom: 0;            /* place at the reserved bottom */
+  bottom: 10px;                         /* dots sit within reserved area */
+}
+/* Center nav arrows relative to the card area (exclude pagination space) */
+.category-swiper .swiper-button-prev,
+.category-swiper .swiper-button-next {
+  top: calc(50% - var(--pagination-space) / 2);
+  transform: translateY(-50%);
+  z-index: 10;
+}
+@media (max-width: 639px) {
+  .category-swiper { --pagination-space: 44px; }
 }
